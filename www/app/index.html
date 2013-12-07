@@ -24,9 +24,13 @@
     <meta name="msapplication-TileImage" content="apple-touch-icon-144x144-precomposed.png">
     <meta name="msapplication-TileColor" content="#fff">
 
-    <link rel="stylesheet" href="styles/db4badba.main.css">
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
 
-    <script src="scripts/vendors/0595e4dd.modernizr.js"></script>
+    <!-- build:js scripts/vendors/modernizr.js -->
+    <script src="scripts/vendors/modernizr.js"></script>
+    <!-- endbuild -->
   </head>
   <body ng-app="wof">
 
@@ -38,7 +42,7 @@
 
             <div class="item" ng-repeat="artist in artistsList.chartArtists">
                 <div class="image">
-                    <img src="" alt="a">
+                    <img src="" alt="a"/>
                     <a class="like ui corner label">
                         <i class="like icon">{{artist.rank}}</i>
                     </a>
@@ -52,9 +56,18 @@
 
     </div>
 
-    <script src="scripts/vendors/d215dbab.vendors.js"></script>
+    <!-- build:js scripts/vendors/vendors.js -->
 
-    <script src="scripts/aadc75a2.main.js"></script>
+    <script src="scripts/vendors/sugar.js"></script>
+    <script src="scripts/vendors/jquery.js"></script>
+    <script src="scripts/vendors/angular.js"></script>
+    <script src="scripts/vendors/angularjs-route.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js scripts/main.js -->
+    <script src="scripts/semetricjs.js"></script>
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
 
   </body>
 </html>

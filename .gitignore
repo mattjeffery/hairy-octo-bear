@@ -41,3 +41,10 @@ nosetests.xml
 # config files
 development.ini
 
+htdocs/node_modules/
+htdocs/.idea
+htdocs/brand/
+www/.tmp/
+www/node_modules/
+
+*.iml
