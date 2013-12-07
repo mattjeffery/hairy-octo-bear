@@ -13,7 +13,7 @@ requires = [
     ]
 
 setup(name='hairyoctobear',
-      version='0.0',
+      version='0.0.1',
       description='hairyoctobear',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
