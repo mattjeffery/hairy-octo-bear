@@ -24,25 +24,29 @@
     <meta name="msapplication-TileImage" content="apple-touch-icon-144x144-precomposed.png">
     <meta name="msapplication-TileColor" content="#fff">
 
-    <link rel="stylesheet" href="styles/a6a2516b.main.css">
+    <link rel="stylesheet" href="styles/29e09805.main.css">
 
   </head>
   <body ng-app="wof">
 
-    <div class="application" ng-controller="AppController">
-        <h1 class="ui header">World Torrent Party</h1>
+    <div class="application" ng-controller="AppController as app">
+        <h1 class="ui header"> <i class="icon linux"></i> {{myposition.formatted_address}} Torrent Party</h1>
 
         <div class="ui items" ng-controller="AritstListController as artistsList">
 
-            <div class="item" ng-repeat="artist in artistsList.chartArtists">
+            <div class="item" ng-repeat="album in artistsList.chartAlbums">
+
                 <div class="image">
-                    <img ng-src="{{artist.attrs.images[2].url}}" alt="a">
+                    <img ng-src="{{album.releasegroup.images.first().url}}" alt="album">
                     <a class="like ui corner label">
-                        <i class="like icon">{{artist.attrs.summary.rank}}</i>
                     </a>
                 </div>
-                <div class="content">
-                    <div class="name">{{artist.attrs.name}}</div>
+
+                <div class="content" ng-class="{nowplaying:album.playing}">
+                    <div class="name">{{album.artist.name}}</div>
+                    <span><i class="play icon" ng-if="album.playing">{{album.artist.rank}}</i>
+                        {{album.releasegroup.name}}
+                    </span>
                 </div>
             </div>
 
@@ -50,9 +54,13 @@
 
     </div>
 
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAixmX2QK45CfV80FjArmhEhw9lEaaPfxs&sensor=true">
+    </script>
+
+
     <script src="scripts/vendors/d215dbab.vendors.js"></script>
 
-    <script src="scripts/fd76f404.main.js"></script>
+    <script src="scripts/3bd0e410.main.js"></script>
 
   </body>
 </html>
