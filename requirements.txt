@@ -1,6 +1,7 @@
 Chameleon==2.14
 Mako==0.9.0
 MarkupSafe==0.18
+Paste==1.7.5.1
 PasteDeploy==1.5.0
 Pygments==1.6
 RelStorage==1.5.1
