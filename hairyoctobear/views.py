@@ -61,7 +61,28 @@ def augment_chart(request):
     chart_id = request.matchdict.get("id")
     chart = _proxy_api_request(request, "/chart/{id}".format(id=chart_id))
     chart["data"] = chart["data"][:50]
-    for entity in chart["data"]:
+    chartd = chart["data"]
+
+    max_i = len(chartd)
+    i = 0
+
+    while i < max_i - 1:
+        j = i+1
+        while j < max_i:
+            if "releasegroup" in chartd[i] and "releasegroup" in chartd[j]:
+                if chartd[i]["releasegroup"]["name"] == chartd[j]["releasegroup"]["name"]:
+                    log.debug("Deleting release {0} {1}".format(j, chartd[j]["releasegroup"]))
+                    chartd[i]["releasegroup"]["artists"].extend(chartd[j]["releasegroup"]["artists"])
+                    chartd.pop(j)
+                    max_i = len(chartd)
+                else:
+                    j += 1
+            else:
+                j += 1
+        i += 1
+
+    for i, entity in enumerate(chartd):
+        entity["rank"] = i+1
         if "releasegroup" in entity:
             rg = entity["releasegroup"]
             drg = get_release_from_deezer(request, rg["name"], settings["deezer.key"])
