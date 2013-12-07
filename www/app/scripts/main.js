@@ -1,12 +1,12 @@
 var wof = angular.module("wof",[]);
 
-wof.run(function($rootScope,$timeout){
+wof.run(["$rootScope","$timeout",function($rootScope,$timeout){
     $rootScope.doLater = function(fn){
         $timeout(function(){
             fn();
         },0);
     }
-});
+}]);
 
 var token = "dd7bc0e50cdd4edca1f29af02f10e74f&_=1386421294382";
 
