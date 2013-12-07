@@ -113,7 +113,7 @@ def api_exception_tween_factory(handler, registry):
             log.debug("Caught APIError Exception: {0}".format(exc))
             # Render an API exception
             return api_wrapper.response(request, exc)
-        except:
+        except Exception as exc:
             # if the debug tool bar is running then just raise the exception
             # TODO: what if pyramid_debugtoolbar is only enabled for admins?
             if pyramid_debugtoolbar:

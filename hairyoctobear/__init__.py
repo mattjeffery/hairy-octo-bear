@@ -17,6 +17,7 @@ def main(global_config, **settings):
         raise ConfigurationError("Failed to load config from env: {0}".format(exc))
 
     config = Configurator(settings=settings)
+    config.add_route('augment_chart', '/chart/{id}')
     config.add_route('proxy', '/*url')
     config.scan()
 
