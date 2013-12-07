@@ -119,6 +119,7 @@ def api_exception_tween_factory(handler, registry):
             if pyramid_debugtoolbar:
                 raise
             else:
+                log.exception("")
                 apiexc = APIError.from_exception(exc)
                 return api_wrapper.response(request, apiexc)
 

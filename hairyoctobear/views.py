@@ -5,6 +5,7 @@ import logging
 
 from pyramid.view import view_config
 from hairyoctobear.api.exceptions import APIError
+from hairyoctobear.deezer import get_release_from_deezer
 
 log = logging.getLogger(__name__)
 
@@ -56,9 +57,16 @@ def augment_chart(request):
     :param request:
     :return:
     """
+    settings = request.registry.settings
     chart_id = request.matchdict.get("id")
     chart = _proxy_api_request(request, "/chart/{id}".format(id=chart_id))
+    chart["data"] = chart["data"][:50]
     for entity in chart["data"]:
+        if "releasegroup" in entity:
+            rg = entity["releasegroup"]
+            drg = get_release_from_deezer(request, rg["name"], settings["deezer.key"])
+            entity["releasegroup"]["images"] = [{"size": 120, "url": drg and drg["cover"]}]
+
         entity["preview_url"] = "http://www.pop-machine.de/music/Lars_Vegas/Never_gonna_give_you_up.MP3"
     return chart
 

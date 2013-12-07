@@ -13,6 +13,7 @@ def main(global_config, **settings):
         settings["memcache.password"] = os.environ["MEMCACHEDCLOUD_PASSWORD"]
         settings["memcache.servers"] = os.environ["MEMCACHEDCLOUD_SERVERS"]
         settings["memcache.user"] = os.environ["MEMCACHEDCLOUD_USERNAME"]
+        settings["deezer.key"] = os.environ["DEEZER_KEY"]
     except KeyError as exc:
         raise ConfigurationError("Failed to load config from env: {0}".format(exc))
 
