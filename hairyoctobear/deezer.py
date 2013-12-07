@@ -17,7 +17,7 @@ def _deezer_request(url, args):
 
 def get_release_from_deezer(request, search, token):
     url = "https://api.deezer.com/search/album"
-    args= {"q": quote_plus(search),
+    args= {"q": quote_plus(search.encode("utf8")),
            "output": "json",
            "access_token": token}
 
