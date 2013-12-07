@@ -32,8 +32,8 @@
   </head>
   <body ng-app="wof">
 
-    <div class="application" ng-controller="AppController">
-        <h1 class="ui header">World Torrent Party</h1>
+    <div class="application" ng-controller="AppController as app">
+        <h1 class="ui header">{{myposition.formatted_address}} Torrent Party</h1>
 
         <div class="ui items" ng-controller="AritstListController as artistsList">
 
@@ -52,6 +52,11 @@
         </div>
 
     </div>
+
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAixmX2QK45CfV80FjArmhEhw9lEaaPfxs&sensor=true">
+    </script>
+
 
     <!-- build:js scripts/vendors/vendors.js -->
 
