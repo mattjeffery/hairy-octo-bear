@@ -66,6 +66,7 @@ def augment_chart(request):
     max_i = len(chartd)
     i = 0
 
+    # remove duplicates from the charts
     while i < max_i - 1:
         j = i+1
         while j < max_i:
@@ -88,6 +89,6 @@ def augment_chart(request):
             drg = get_release_from_deezer(request, rg["name"], settings["deezer.key"])
             entity["releasegroup"]["images"] = [{"size": 120, "url": drg and drg["cover"]}]
 
-            entity["preview_url"] = drg and get_preview_for_album(request, drg["id"], settings["deezer.key"])
+            entity["releasegroup"]["preview_url"] = drg and get_preview_for_album(request, drg["id"], settings["deezer.key"])
     return chart
 
