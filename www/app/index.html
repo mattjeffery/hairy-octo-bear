@@ -32,26 +32,34 @@
   </head>
   <body ng-app="wof">
 
-    <div class="application" ng-controller="AppController">
-        <h1 class="ui header">World Torrent Party</h1>
+    <div class="application" ng-controller="AppController as app">
+        <h1 class="ui header">{{myposition.formatted_address}} Torrent Party</h1>
 
         <div class="ui items" ng-controller="AritstListController as artistsList">
 
-            <div class="item" ng-repeat="artist in artistsList.chartArtists">
+            <div class="item" ng-repeat="album in artistsList.chartAlbums">
+
                 <div class="image">
-                    <img ng-src="{{artist.attrs.images[2].url}}" alt="a"/>
+                    <img ng-src="{{album.releasegroup.images.first(}.url}}" alt="album"/>
                     <a class="like ui corner label">
-                        <i class="like icon">{{artist.attrs.summary.rank}}</i>
+                        <i class="like icon">{{album.artist.rank}}</i>
                     </a>
                 </div>
+
                 <div class="content">
-                    <div class="name">{{artist.attrs.name}}</div>
+                    <div class="name">{{album.artist.name}}</div>
+                    <span>{{album.releasegroup.name}}</span>
                 </div>
             </div>
 
         </div>
 
     </div>
+
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAixmX2QK45CfV80FjArmhEhw9lEaaPfxs&sensor=true">
+    </script>
+
 
     <!-- build:js scripts/vendors/vendors.js -->
 
