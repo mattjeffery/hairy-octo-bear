@@ -33,3 +33,7 @@ body {
     height: 480px;
     margin: auto;
 }
+
+.item .content.nowplaying {
+    background:#bada55;
+}

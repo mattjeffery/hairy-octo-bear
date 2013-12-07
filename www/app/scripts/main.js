@@ -13,14 +13,29 @@ var token = "dd7bc0e50cdd4edca1f29af02f10e74f&_=1386421294382";
 var MusicPlayer = function(){
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     this.context = new AudioContext();
+
+    this.context.addEventListener("complete",function(){
+        console.log("AUDIO COMPLETED ! ");
+    })
+
 }
 
 MusicPlayer.prototype.playList = function(list){
    var currentIndex = -1;
+   var self = this;
 
    var doPlay = function(){
-        currentIndex +=1;
-        this.play(list[currentIndex]["preview_url"]).done(doPlay);
+       currentIndex > -1 ? list[currentIndex].playing = false : false;
+
+       currentIndex +=1;
+
+       list[currentIndex].playing = true;
+
+
+       var url = list[currentIndex].releasegroup["preview_url"];
+
+       console.log("PLAYING ",url);
+       self.play(url).done(doPlay);
     }
 
     doPlay();
@@ -109,14 +124,12 @@ wof.controller("AritstListController",["$timeout","$scope",function($timeout,$sc
         player.playList(self.chartAlbums);
     }
 
-
-    var downloadCharts = charts.filter(function(chart){
-        return chart.label.indexOf("BitTorrent") > -1;
-    }).first();
-
-    jQuery.get(semetric.options.API_URL + "chart/" + "0695f0bba6144dfaa390e9b9f017ceab").done(function(result){
+    jQuery.get(semetric.options.API_URL + "chart/" + "f4c9ea0888be458a9c2e52b3e754c2bf").done(function(result){
         $scope.doLater(function(){
-           self.chartAlbums = result.response.data;
+           self.chartAlbums = result.response.data.filter(function(d){
+               return d.releasegroup.images.first().url !== null;
+           });
+           startPlaying();
         });
     });
 

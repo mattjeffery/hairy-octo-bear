@@ -33,22 +33,23 @@
   <body ng-app="wof">
 
     <div class="application" ng-controller="AppController as app">
-        <h1 class="ui header">{{myposition.formatted_address}} Torrent Party</h1>
+        <h1 class="ui header"> <i class="icon linux"></i> {{myposition.formatted_address}} Torrent Party</h1>
 
         <div class="ui items" ng-controller="AritstListController as artistsList">
 
             <div class="item" ng-repeat="album in artistsList.chartAlbums">
 
                 <div class="image">
-                    <img ng-src="{{album.releasegroup.images.first(}.url}}" alt="album"/>
+                    <img ng-src="{{album.releasegroup.images.first().url}}" alt="album"/>
                     <a class="like ui corner label">
-                        <i class="like icon">{{album.artist.rank}}</i>
                     </a>
                 </div>
 
-                <div class="content">
+                <div class="content" ng-class="{nowplaying:album.playing}">
                     <div class="name">{{album.artist.name}}</div>
-                    <span>{{album.releasegroup.name}}</span>
+                    <span><i class="play icon" ng-if="album.playing">{{album.artist.rank}}</i>
+                        {{album.releasegroup.name}}
+                    </span>
                 </div>
             </div>
 
