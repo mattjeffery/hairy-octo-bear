@@ -1,3 +1,5 @@
+dogpile.cache
+python-binary-memcached
 wsgicors
 httplib2
 Chameleon==2.14
