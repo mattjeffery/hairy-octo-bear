@@ -5,7 +5,7 @@ import logging
 
 from pyramid.view import view_config
 from hairyoctobear.api.exceptions import APIError
-from hairyoctobear.deezer import get_release_from_deezer
+from hairyoctobear.deezer import get_release_from_deezer, get_preview_for_album
 
 log = logging.getLogger(__name__)
 
@@ -88,6 +88,6 @@ def augment_chart(request):
             drg = get_release_from_deezer(request, rg["name"], settings["deezer.key"])
             entity["releasegroup"]["images"] = [{"size": 120, "url": drg and drg["cover"]}]
 
-        entity["preview_url"] = "http://www.pop-machine.de/music/Lars_Vegas/Never_gonna_give_you_up.MP3"
+            entity["preview_url"] = drg and get_preview_for_album(request, drg["id"], settings["deezer.key"])
     return chart
 

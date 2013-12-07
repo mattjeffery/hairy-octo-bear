@@ -28,3 +28,18 @@ def get_release_from_deezer(request, search, token):
 
     if "data" in results and len(results["data"]):
         return results["data"][0]
+
+def get_preview_for_album(request, album_id, token):
+    url = "http://api.deezer.com/album/{0}".format(album_id)
+    args= {"output": "json",
+           "access_token": token}
+
+    def __get():
+        return _deezer_request(url, args)
+
+    result = json.loads(request.registry.get_or_create("deezer_album"+str(album_id), __get))
+
+    try:
+        return result["tracks"]["data"][0]["preview"]
+    except KeyError:
+        return None
