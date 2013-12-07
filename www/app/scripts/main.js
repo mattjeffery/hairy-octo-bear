@@ -2,13 +2,13 @@ var wof = angular.module("wof",[]);
 var token = "dd7bc0e50cdd4edca1f29af02f10e74f&_=1386421294382";
 
 jQuery.ajaxPrefilter(function(options, originalOptions, jqXHR){
-    if(options.url.indexOf("musicmetric") > 0){
+    if(options.url.indexOf("semetric") > 0){
         options.url = options.url.indexOf("?") < 0 ? options.url + "?token=" + token : options.url +"&token";
     }
 });
 
 var API = semetric.factory(jQuery);
-semetric.options.API_URL = "http://app.musicmetric.com/api/";
+semetric.options.API_URL = "http://api.semetric.com/";
 
 wof.controller("AppController",["$timeout",function($timeout){
 
@@ -34,6 +34,7 @@ wof.controller("AritstListController",["$timeout",function($timeout){
 
         var render = function(){
             $timeout(function(){
+                console.log("All Chart Artists ",allArtist);
                 self.chartArtists = allArtist;
             },0);
         }
@@ -42,13 +43,9 @@ wof.controller("AritstListController",["$timeout",function($timeout){
             chartArtist.artist().then(artistsReady);
         });
 
-
-
         semetric.deferred.when(artistPromises).done(function(result){
            console.log("RESULT -------> ",result);
         });
-
-
 
     },function(error){
         console.log("ERROR",error);

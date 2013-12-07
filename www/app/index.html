@@ -25,30 +25,27 @@
     <meta name="msapplication-TileColor" content="#fff">
 
     <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/semantic.css"/>
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
 
-    <!-- build:js scripts/vendors/modernizr.js -->
-    <script src="scripts/vendors/modernizr.js"></script>
-    <!-- endbuild -->
   </head>
   <body ng-app="wof">
 
     <div class="application" ng-controller="AppController">
-        <h1 class="ui header">Semetric Wall of Fame</h1>
+        <h1 class="ui header">World Torrent Party</h1>
 
-        <div class="ui horizontal items" ng-controller="AritstListController as artistsList">
-            <h3 class="ui header">Total Artists {{artistsList.chartArtists.length}}</h3>
+        <div class="ui items" ng-controller="AritstListController as artistsList">
 
             <div class="item" ng-repeat="artist in artistsList.chartArtists">
                 <div class="image">
-                    <img src="" alt="a"/>
+                    <img ng-src="{{artist.attrs.images[2].url}}" alt="a"/>
                     <a class="like ui corner label">
-                        <i class="like icon">{{artist.rank}}</i>
+                        <i class="like icon">{{artist.attrs.summary.rank}}</i>
                     </a>
                 </div>
                 <div class="content">
-                    <div class="name">{{artist.attrs.artist.name}}</div>
+                    <div class="name">{{artist.attrs.name}}</div>
                 </div>
             </div>
 
