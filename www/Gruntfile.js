@@ -13,8 +13,6 @@ module.exports = function (grunt) {
     // load all grunt tasks
     require('load-grunt-tasks')(grunt);
 
-    grunt.loadNpmTasks("semetricjs");
-
     // configurable paths
     var semetricConfig = {
         app: 'app',
@@ -260,7 +258,6 @@ module.exports = function (grunt) {
 
         grunt.task.run([
             'clean:server',
-            'semetricjs:build',
             'concurrent:server',
             'autoprefixer',
             'connect:livereload',
@@ -279,7 +276,6 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
-        'semetricjs:build',
         'useminPrepare',
         'concurrent:dist',
         'autoprefixer',
@@ -297,6 +293,4 @@ module.exports = function (grunt) {
         'build'
     ]);
 
-
-    grunt.registerTask('sm',['semetricjs'])
 };
