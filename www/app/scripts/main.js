@@ -15,6 +15,18 @@ var MusicPlayer = function(){
     this.context = new AudioContext();
 }
 
+MusicPlayer.prototype.playList = function(list){
+   var currentIndex = -1;
+
+   var doPlay = function(){
+        currentIndex +=1;
+        this.play(list[currentIndex]["preview_url"]).done(doPlay);
+    }
+
+    doPlay();
+    // start playing
+}
+
 MusicPlayer.prototype.play = function(url){
 
     var soundData = "";
@@ -43,6 +55,9 @@ MusicPlayer.prototype.play = function(url){
         });
     }
     request.send();
+
+
+    return jQuery.Deferred();
 }
 
 
@@ -53,9 +68,7 @@ jQuery.ajaxPrefilter(function(options, originalOptions, jqXHR){
 });
 
 var API = semetric.factory(jQuery);
-semetric.options.API_URL = "http://api.semetric.com/";
-
-
+semetric.options.API_URL = "http://hairy-octo-bear.herokuapp.com/api/";
 
 wof.controller("AppController",["$scope",function($scope){
 
@@ -86,47 +99,26 @@ wof.controller("AppController",["$scope",function($scope){
 
 }]);
 
-wof.controller("AritstListController",["$timeout",function($timeout){
+wof.controller("AritstListController",["$timeout","$scope",function($timeout,$scope){
+
     var charts = API.charts().artistCharts()
     var self   = this;
+    var player = new MusicPlayer();
+
+    var startPlaying = function(){
+        player.playList(self.chartAlbums);
+    }
+
 
     var downloadCharts = charts.filter(function(chart){
         return chart.label.indexOf("BitTorrent") > -1;
     }).first();
 
-
-    var player = new MusicPlayer();
-
-    player.play("data/test.mp3");
-
-    /*downloadCharts.populate().then(function(collection){
-
-        var allArtist = [];
-        var artistsReady = function(artist){
-            allArtist.push(artist);
-            if(allArtist.length == collection.models.length){
-                render();
-            }
-        }
-
-        var render = function(){
-            $timeout(function(){
-                console.log("All Chart Artists ",allArtist);
-                self.chartArtists = allArtist;
-            },0);
-        }
-
-        var artistPromises = collection.models.forEach(function(chartArtist){
-            chartArtist.artist().then(artistsReady);
+    jQuery.get(semetric.options.API_URL + "chart/" + "0695f0bba6144dfaa390e9b9f017ceab").done(function(result){
+        $scope.doLater(function(){
+           self.chartAlbums = result.response.data;
         });
-
-        semetric.deferred.when(artistPromises).done(function(result){
-           console.log("RESULT -------> ",result);
-        });
-
-    },function(error){
-        console.log("ERROR",error);
-    });*/
+    });
 
 }]);
 
@@ -139,8 +131,6 @@ wof.directive("gmap",function(){
                    center: new google.maps.LatLng(-34.397, 150.644),
                    zoom: 8
                };
-
-               console.log("Element ID ",element.get().first());
 
                var map = new google.maps.Map(element.get().first(),
                    mapOptions);

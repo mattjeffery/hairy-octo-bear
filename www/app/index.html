@@ -37,15 +37,18 @@
 
         <div class="ui items" ng-controller="AritstListController as artistsList">
 
-            <div class="item" ng-repeat="artist in artistsList.chartArtists">
+            <div class="item" ng-repeat="album in artistsList.chartAlbums">
+
                 <div class="image">
-                    <img ng-src="{{artist.attrs.images[2].url}}" alt="a"/>
+                    <img ng-src="{{album.releasegroup.images.first(}.url}}" alt="album"/>
                     <a class="like ui corner label">
-                        <i class="like icon">{{artist.attrs.summary.rank}}</i>
+                        <i class="like icon">{{album.artist.rank}}</i>
                     </a>
                 </div>
+
                 <div class="content">
-                    <div class="name">{{artist.attrs.name}}</div>
+                    <div class="name">{{album.artist.name}}</div>
+                    <span>{{album.releasegroup.name}}</span>
                 </div>
             </div>
 
