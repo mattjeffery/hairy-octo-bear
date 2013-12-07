@@ -1,4 +1,5 @@
 import os
+from wsgicors import CORS
 from pyramid.config import Configurator
 
 
@@ -11,4 +12,14 @@ def main(global_config, **settings):
     config = Configurator(settings=settings)
     config.add_route('proxy', '/*url')
     config.scan()
-    return config.make_wsgi_app()
+
+    config.include("hairyoctobear.api")
+
+    app = config.make_wsgi_app()
+
+    return CORS(config.make_wsgi_app(),
+                headers="*",
+                methods="*",
+                maxage="180",
+                origin="copy",
+                credentials="true")

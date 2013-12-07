@@ -8,7 +8,7 @@ from pyramid.view import view_config
 log = logging.getLogger(__name__)
 
 
-@view_config(route_name='proxy', renderer='json')
+@view_config(route_name='proxy', renderer='jsonp')
 def api_proxy(request):
     http = httplib2.Http()
     log.debug("Matched: {0}".format(request.matchdict))
