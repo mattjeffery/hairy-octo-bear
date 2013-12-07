@@ -58,5 +58,7 @@ def augment_chart(request):
     """
     chart_id = request.matchdict.get("id")
     chart = _proxy_api_request(request, "/chart/{id}".format(id=chart_id))
+    for entity in chart["data"]:
+        entity["preview_url"] = "http://www.pop-machine.de/music/Lars_Vegas/Never_gonna_give_you_up.MP3"
     return chart
 

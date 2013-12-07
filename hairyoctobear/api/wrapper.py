@@ -120,6 +120,6 @@ def api_exception_tween_factory(handler, registry):
                 raise
             else:
                 apiexc = APIError.from_exception(exc)
-                return api_wrapper.response(apiexc)
+                return api_wrapper.response(request, apiexc)
 
     return api_exception_tween

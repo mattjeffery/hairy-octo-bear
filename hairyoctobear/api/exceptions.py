@@ -11,9 +11,9 @@ class APIError(Exception):
         self.code = code or self.__code__
         self.message = message or self.__message__
 
-    def from_exception(self, exc):
-        self.code = 500
-        self.message = str(exc)
+    @classmethod
+    def from_exception(cls, exc):
+        return cls(code=500, message=str(exc))
 
     @property
     def error(self):
