@@ -1,3 +1,4 @@
+pymongo
 dogpile.cache
 python-binary-memcached
 wsgicors

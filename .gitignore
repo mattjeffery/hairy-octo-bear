@@ -40,6 +40,7 @@ nosetests.xml
 
 # config files
 development.ini
+mongo.ini
 
 htdocs/node_modules/
 htdocs/.idea
@@ -48,3 +49,8 @@ www/.tmp/
 www/node_modules/
 
 *.iml
+
+
+# data files
+*.tsv
+*.gz
