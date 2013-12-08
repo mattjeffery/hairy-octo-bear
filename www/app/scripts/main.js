@@ -230,7 +230,7 @@ wof.controller("AritstListController",["$timeout","$scope",function($timeout,$sc
     var canvas = document.getElementById("visFX");
     var canvas_context = document.getElementById("visFX").getContext("2d");
 
-    var awesomeRenderer = render3d();
+    //var awesomeRenderer = render3d();
 
     var renderVisuals = function(data){
 
@@ -366,7 +366,7 @@ function sine() {
 }
 
 
-function render3d() {
+/*function render3d() {
     var scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera(50, $(window).width() / $(window).height(), 1, 1000);
     var renderer = new THREE.WebGLRenderer();
@@ -458,5 +458,5 @@ function render3d() {
     }
 
     return render
-}
+}*/
 
