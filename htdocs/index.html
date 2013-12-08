@@ -24,15 +24,25 @@
     <meta name="msapplication-TileImage" content="apple-touch-icon-144x144-precomposed.png">
     <meta name="msapplication-TileColor" content="#fff">
 
-    <link rel="stylesheet" href="styles/5c899e1d.main.css">
+    <link rel="stylesheet" href="styles/de0bfee8.main.css">
 
   </head>
   <body ng-app="wof">
 
     <div class="application" ng-controller="AppController as app">
-        <h1 class="ui green header location"> <i class="icon linux"></i> {{myposition.address_components[2].long_name}} Torrent Party</h1>
 
-        <svg id="sparks" class="ui sparkline"></svg>
+        <header>
+            <h1 class="ui green header location"> <i class="icon linux"></i> {{myposition.address_components[2].long_name}} #pirateParty</h1>
+
+        </header>
+
+
+        <div id="vfxContainer" class="ui">
+            <canvas id="visFX"></canvas>
+            <div id="threex">
+
+            </div>
+        </div>
 
         <div class="ui items albums" ng-controller="AritstListController as artistsList">
 
@@ -47,11 +57,11 @@
                 <div class="content" ng-class="{nowplaying:album.playing}">
                     <div class="name">{{album.artist.name}}</div>
                     <span><i class="play icon" ng-if="album.playing">{{album.artist.rank}}</i>
-                        {{album.releasegroup.name}} - {{album.downloads.sumTotal}}
+                        {{album.releasegroup.name}} -
+                        <span>
+                            <svg class="sparkline" sparkline="" graph="{{album.downloads.graphData}}"></svg>
+                        </span>
                     </span>
-                    <svg class="sparkline" sparkline="" graph="{{album.downloads.graphData}}">
-
-                    </svg>
                 </div>
             </div>
 
@@ -63,9 +73,9 @@
     </script>
 
 
-    <script src="scripts/vendors/d3e61de8.vendors.js"></script>
+    <script src="scripts/vendors/59dce87e.vendors.js"></script>
 
-    <script src="scripts/ae07a7e6.main.js"></script>
+    <script src="scripts/a61f6414.main.js"></script>
 
   </body>
 </html>
