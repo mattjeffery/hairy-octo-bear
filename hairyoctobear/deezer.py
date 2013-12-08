@@ -1,5 +1,6 @@
 import json
 import logging
+import random
 from urllib import urlencode, quote_plus
 import bmemcached
 import httplib2
@@ -52,6 +53,6 @@ def get_preview_for_album(request, album_id, token):
         request.registry.get_or_create("deezer_album" + str(album_id), __get, should_cache_fn=dont_cache_none)) or {}
 
     try:
-        return result["tracks"]["data"][0]["preview"]
+        return random.choice(result["tracks"]["data"])["preview"]
     except KeyError:
         return None

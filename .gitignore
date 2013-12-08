@@ -54,3 +54,5 @@ www/node_modules/
 # data files
 *.tsv
 *.gz
+*.dbm*
+
