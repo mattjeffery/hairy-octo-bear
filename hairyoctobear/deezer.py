@@ -32,13 +32,16 @@ def get_release_from_deezer(request, search, token):
     def __get():
         return _deezer_request(url, args)
 
-    results = json.loads(request.registry.get_or_create("deezer_search_album" + str(search), __get,
+    results = json.loads(request.registry.get_or_create("deezer_search_album_" + str(search), __get,
                                                         should_cache_fn=dont_cache_none)) or {}
 
     if "data" in results and len(results["data"]):
+        log.info("{0} results for {1}".format(len(results["data"]), search))
         for result in results["data"]:
             if "tribute" not in result["title"].lower():
                 return results["data"][0]
+    else:
+        log.info("0 results for {0}".format(search))
 
 
 def get_preview_for_album(request, album_id, token):
@@ -50,7 +53,7 @@ def get_preview_for_album(request, album_id, token):
         return _deezer_request(url, args)
 
     result = json.loads(
-        request.registry.get_or_create("deezer_album" + str(album_id), __get, should_cache_fn=dont_cache_none)) or {}
+        request.registry.get_or_create("deezer_album_" + str(album_id), __get, should_cache_fn=dont_cache_none)) or {}
 
     try:
         return random.choice(result["tracks"]["data"])["preview"]
