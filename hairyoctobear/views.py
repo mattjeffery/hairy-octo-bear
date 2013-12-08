@@ -78,6 +78,7 @@ def _augment_chart(request, chart, settings):
         if "releasegroup" in entity:
             rg = entity["releasegroup"]
             drg = get_release_from_deezer(request, rg["name"], settings["deezer.key"])
+            print drg
             entity["releasegroup"]["images"] = [{"size": 120, "url": drg and drg["cover"]}]
 
             entity["releasegroup"]["preview_url"] = drg and get_preview_for_album(request, drg["id"],
