@@ -12,9 +12,9 @@ def main(global_config, **settings):
 
     try:
         settings["api.token"] = os.environ["SEMETRIC_API"]
-        settings["memcache.password"] = os.environ["MEMCACHEDCLOUD_PASSWORD"]
-        settings["memcache.servers"] = os.environ["MEMCACHEDCLOUD_SERVERS"]
-        settings["memcache.user"] = os.environ["MEMCACHEDCLOUD_USERNAME"]
+        settings["memcache.password"] = os.environ["MEMCACHIER_PASSWORD"]
+        settings["memcache.servers"] = os.environ["MEMCACHIER_SERVERS"]
+        settings["memcache.user"] = os.environ["MEMCACHIER_USERNAME"]
         settings["deezer.key"] = os.environ["DEEZER_KEY"]
     except KeyError as exc:
         raise ConfigurationError("Failed to load config from env: {0}".format(exc))
