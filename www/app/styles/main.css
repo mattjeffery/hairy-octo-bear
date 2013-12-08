@@ -2,6 +2,19 @@ body {
     background: #fafafa;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     /*background: #1c1c1c;*/
+    margin: 0px;
+}
+
+header{
+    position: fixed;
+    width: 100%;
+    text-align: center;
+    background: #FFFAFA;
+    z-index: 1000;
+}
+
+.application {
+    margin:0px;
 }
 
 .hero-unit {
@@ -44,11 +57,25 @@ body {
 
 .ui.items.albums {
     width: 1330px;
-    margin: auto;
+    margin: 40px auto;
 }
+
+#vfxContainer {
+    text-align: center;
+}
+
+#visFX{
+    width: 480px;
+    height: 140px;
+}
+
 
 .sparkline {
     width: 100%;
     height: 30px;
-    background: #ececec;
+}
+
+#three {
+    width: 100%;
+    height: 200px;
 }
