@@ -24,15 +24,17 @@
     <meta name="msapplication-TileImage" content="apple-touch-icon-144x144-precomposed.png">
     <meta name="msapplication-TileColor" content="#fff">
 
-    <link rel="stylesheet" href="styles/29e09805.main.css">
+    <link rel="stylesheet" href="styles/5c899e1d.main.css">
 
   </head>
   <body ng-app="wof">
 
     <div class="application" ng-controller="AppController as app">
-        <h1 class="ui header"> <i class="icon linux"></i> {{myposition.formatted_address}} Torrent Party</h1>
+        <h1 class="ui green header location"> <i class="icon linux"></i> {{myposition.address_components[2].long_name}} Torrent Party</h1>
 
-        <div class="ui items" ng-controller="AritstListController as artistsList">
+        <svg id="sparks" class="ui sparkline"></svg>
+
+        <div class="ui items albums" ng-controller="AritstListController as artistsList">
 
             <div class="item" ng-repeat="album in artistsList.chartAlbums">
 
@@ -45,8 +47,11 @@
                 <div class="content" ng-class="{nowplaying:album.playing}">
                     <div class="name">{{album.artist.name}}</div>
                     <span><i class="play icon" ng-if="album.playing">{{album.artist.rank}}</i>
-                        {{album.releasegroup.name}}
+                        {{album.releasegroup.name}} - {{album.downloads.sumTotal}}
                     </span>
+                    <svg class="sparkline" sparkline="" graph="{{album.downloads.graphData}}">
+
+                    </svg>
                 </div>
             </div>
 
@@ -58,9 +63,9 @@
     </script>
 
 
-    <script src="scripts/vendors/d215dbab.vendors.js"></script>
+    <script src="scripts/vendors/d3e61de8.vendors.js"></script>
 
-    <script src="scripts/666de000.main.js"></script>
+    <script src="scripts/ae07a7e6.main.js"></script>
 
   </body>
 </html>

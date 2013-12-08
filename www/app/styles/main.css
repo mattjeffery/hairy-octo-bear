@@ -1,7 +1,7 @@
 body {
     background: #fafafa;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #333;
+    /*background: #1c1c1c;*/
 }
 
 .hero-unit {
@@ -36,4 +36,19 @@ body {
 
 .item .content.nowplaying {
     background:#bada55;
+}
+
+.header.location {
+    text-align: center;
+}
+
+.ui.items.albums {
+    width: 1330px;
+    margin: auto;
+}
+
+.sparkline {
+    width: 100%;
+    height: 30px;
+    background: #ececec;
 }
