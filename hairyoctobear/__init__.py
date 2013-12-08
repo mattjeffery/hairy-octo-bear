@@ -29,19 +29,13 @@ def main(global_config, **settings):
 
     registry = config.registry
 
-    # registry._cache_region = make_region().configure(
-    #     'dogpile.cache.bmemcached',
-    #     expiration_time = 3600,
-    #     arguments = {
-    #         'url': settings["memcache.servers"].split(),
-    #         'username':settings["memcache.user"],
-    #         'password':settings["memcache.password"]
-    #     }
-    # )
     registry._cache_region = make_region().configure(
-        "dogpile.cache.dbm",
+        'dogpile.cache.bmemcached',
+        expiration_time = None,
         arguments = {
-            "filename": "cache.dbm"
+            'url': settings["memcache.servers"].split(),
+            'username':settings["memcache.user"],
+            'password':settings["memcache.password"]
         }
     )
 
