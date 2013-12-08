@@ -27,15 +27,19 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/semantic.css"/>
     <link rel="stylesheet" href="styles/main.css">
-    <!-- endbuild -->
+    <link rel="stylesheet" href="styles/nv.d3.css">
+
+      <!-- endbuild -->
 
   </head>
   <body ng-app="wof">
 
     <div class="application" ng-controller="AppController as app">
-        <h1 class="ui header"> <i class="icon linux"></i> {{myposition.formatted_address}} Torrent Party</h1>
+        <h1 class="ui green header location"> <i class="icon linux"></i> {{myposition.address_components[2].long_name}} Torrent Party</h1>
 
-        <div class="ui items" ng-controller="AritstListController as artistsList">
+        <svg id="sparks" class="ui sparkline"></svg>
+
+        <div class="ui items albums" ng-controller="AritstListController as artistsList">
 
             <div class="item" ng-repeat="album in artistsList.chartAlbums">
 
@@ -48,8 +52,11 @@
                 <div class="content" ng-class="{nowplaying:album.playing}">
                     <div class="name">{{album.artist.name}}</div>
                     <span><i class="play icon" ng-if="album.playing">{{album.artist.rank}}</i>
-                        {{album.releasegroup.name}}
+                        {{album.releasegroup.name}} - {{album.downloads.sumTotal}}
                     </span>
+                    <svg class="sparkline" sparkline graph="{{album.downloads.graphData}}">
+
+                    </svg>
                 </div>
             </div>
 
@@ -68,6 +75,10 @@
     <script src="scripts/vendors/jquery.js"></script>
     <script src="scripts/vendors/angular.js"></script>
     <script src="scripts/vendors/angularjs-route.js"></script>
+
+    <script src="scripts/vendors/d3.js"></script>
+    <script src="scripts/vendors/nv.d3.js"></script>
+
     <!-- endbuild -->
 
     <!-- build:js scripts/main.js -->
