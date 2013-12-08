@@ -229,6 +229,7 @@ wof.controller("AritstListController",["$timeout","$scope",function($timeout,$sc
 
     var canvas = document.getElementById("visFX");
     var canvas_context = document.getElementById("visFX").getContext("2d");
+    var randomColors = d3.scale.category20();
 
     //var awesomeRenderer = render3d();
 
@@ -255,9 +256,9 @@ wof.controller("AritstListController",["$timeout","$scope",function($timeout,$sc
 
                 // Draw the bars on the canvas
                 var bar_width = canvas.width / num_bars;
-                var scaled_average = (average / 256) * canvas.height;
+                var scaled_average = (average / 512) * canvas.height;
 
-                canvas_context.fillStyle = "#bada55";
+                canvas_context.fillStyle = randomColors(i);
                 canvas_context.fillRect(i * bar_width, canvas.height, bar_width - 2,
                     -scaled_average);
 
