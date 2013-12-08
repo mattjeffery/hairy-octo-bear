@@ -35,6 +35,6 @@ if __name__ == "__main__":
 
     for line in options.infile:
         key, value = line.split('\t', 1)
-        charts.insert({"key": key, "value": value})
+        charts.insert({"key": key.lower(), "value": value})
 
     charts.ensure_index("key")

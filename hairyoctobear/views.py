@@ -1,4 +1,5 @@
 import json
+from operator import itemgetter
 from urllib import urlencode
 import httplib2
 import logging
@@ -50,30 +51,21 @@ def api_proxy(request):
     return _proxy_api_request(request, api_path)
 
 
-@view_config(route_name='augment_chart', renderer='jsonp')
-def augment_chart(request):
-    """
-    augment a chart with preview data for items
-    :param request:
-    :return:
-    """
-    settings = request.registry.settings
-    chart_id = request.matchdict.get("id")
-    chart = _proxy_api_request(request, "/chart/{id}".format(id=chart_id))
+def _augment_chart(request, chart, settings):
     chart["data"] = chart["data"][:50]
     chartd = chart["data"]
-
     max_i = len(chartd)
     i = 0
-
     # remove duplicates from the charts
     while i < max_i - 1:
-        j = i+1
+        j = i + 1
         while j < max_i:
             if "releasegroup" in chartd[i] and "releasegroup" in chartd[j]:
                 if chartd[i]["releasegroup"]["name"] == chartd[j]["releasegroup"]["name"]:
                     log.debug("Deleting release {0} {1}".format(j, chartd[j]["releasegroup"]))
-                    chartd[i]["releasegroup"]["artists"].extend(chartd[j]["releasegroup"]["artists"])
+                    if chartd[j]["releasegroup"]["artists"][0]["name"] not in map(itemgetter("name"),
+                                                                                  chartd[i]["releasegroup"]["artists"]):
+                        chartd[i]["releasegroup"]["artists"].extend(chartd[j]["releasegroup"]["artists"])
                     chartd.pop(j)
                     max_i = len(chartd)
                 else:
@@ -81,14 +73,30 @@ def augment_chart(request):
             else:
                 j += 1
         i += 1
-
     for i, entity in enumerate(chartd):
-        entity["rank"] = i+1
+        entity["rank"] = i + 1
         if "releasegroup" in entity:
             rg = entity["releasegroup"]
             drg = get_release_from_deezer(request, rg["name"], settings["deezer.key"])
             entity["releasegroup"]["images"] = [{"size": 120, "url": drg and drg["cover"]}]
 
-            entity["releasegroup"]["preview_url"] = drg and get_preview_for_album(request, drg["id"], settings["deezer.key"])
+            entity["releasegroup"]["preview_url"] = drg and get_preview_for_album(request, drg["id"],
+                                                                                  settings["deezer.key"])
     return chart
+
+
+@view_config(route_name='augment_chart', renderer='jsonp')
+def augment_chart(request):
+    """omit
+    augment a chart with preview data for items
+    :param request:
+    :return:
+    """
+    settings = request.registry.settings
+    chart_id = request.matchdict.get("id")
+
+    chart = request.get_chart(chart_id)
+    if not chart:
+        chart = _proxy_api_request(request, "/chart/{id}".format(id=chart_id))
+    return _augment_chart(request, chart, settings)
 
