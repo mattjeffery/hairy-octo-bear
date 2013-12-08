@@ -35,7 +35,9 @@ def get_release_from_deezer(request, search, token):
                                                         should_cache_fn=dont_cache_none)) or {}
 
     if "data" in results and len(results["data"]):
-        return results["data"][0]
+        for result in results["data"]:
+            if "tribute" not in result["title"].lower():
+                return results["data"][0]
 
 
 def get_preview_for_album(request, album_id, token):
